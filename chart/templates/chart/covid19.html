@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}covid-19 Page{% endblock %}
 {% block content %}
+      {% load static %}
      <div class="card alert-danger" style="text-align: center">
         <h5 class="card-header">뷰에서 모든 데이터 처리 작업을 수행하는 방식으로 COVID-19 차트 구현</h5>
     </div>
@@ -9,5 +10,13 @@
     <script>
         Highcharts.chart('container', {{ chart|safe }});
     </script>
+    <div class="card alert-danger" style="text-align: center; margin:100px 0px 0px 0px;">
+        <h5 class="card-header">쥬피터 노트북에서 실행한 COVID-19 차트 구현 화면</h5>
+    </div>
+    <div class="card" >
+      <div class="card-body" style="text-align: center; ">
+            <img class="card-img-top" src="{% static 'images/lab.JPG' %}" width="70%">
+      </div>
+    </div>
 
 {% endblock %}

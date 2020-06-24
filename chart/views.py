@@ -180,150 +180,41 @@ def covid_19_view(request):  # COVID-19
     for country in list(percapita_confirmed.columns):
         percapita_confirmed[country] = percapita_confirmed[country] / populations[country] * 100000
 
-    # percapita_confirmed = percapita_confirmed.to_json()
-    #     subset = percapita_confirmed['Country', 'Confirmed']
-    #     tuples = [Tuple[x] for x in subset.values]
-
-    f = percapita_confirmed['France']
-    france = f.values.tolist()
-    k = percapita_confirmed['Korea, South']
-    g = percapita_confirmed['Germany']
-    u = percapita_confirmed['US']
-    us = u.values.tolist()
+    france = percapita_confirmed['France']
+    france = france.values.tolist()
+    korea = percapita_confirmed['Korea, South']
+    korea = korea.values.tolist()
+    germany = percapita_confirmed['Germany']
+    germany = germany.values.tolist()
+    us = percapita_confirmed['US']
+    us = us.values.tolist()
     uk = percapita_confirmed['United Kingdom']
-    f = f.to_json()
-
-
-
-    u = u.to_json()
-    france = {
-            'name':'프랑스',
-            'data':france
-    },
-    korea = {
-                'name': '한국',
-                'data': us,
-                'color': 'green'
-                },
+    uk = uk.values.tolist()
 
     chart={
         'chart': {'type': 'line'},
         'title': {'text': 'COVID-19 확진자 발생율'},
         'xAxis': {'type': 'datetime'},
-        'subtitle': {
-            'text': "Source: Johns Hopkins University Center for Systems Science and Engineering"},
-
         'yAxis': [
             {'labels': {'format': "{value}건/백만명"},
              "title": {"text": "합계건수"}}],
-        # "plotOptions": {"spline": {"lineWidth": 3, "states": {"hover": {"lineWidth": 5}}}},
         'series':[{
                   'name': '한국',
-                  'data': [107, 31, 635, 203, 2]
+                  'data': korea
               }, {
                   'name': '영국',
-                  'data': [133, 156, 947, 408, 6]
+                  'data': uk
               }, {
                   'name': '프랑스',
                   'data': france
               }, {
                   'name': '독일',
-                  'data': [1052, 954, 4250, 740, 38]
+                  'data': germany
               }, {
                   'name': '미국',
-                  'data': korea
+                  'data': us
               }]}
-
     dump = json.dumps(chart,cls=DjangoJSONEncoder)
     return render(request, 'chart/covid19.html', {'chart': dump})
 
 
-
-    # df_1 = csv.reader(df)
-    # df_2 = []
-    #     # for i in range(len(df_1)):
-    # for i in df_2:
-    #     list = (df_1["Date"][i],df_1["Country"][i],df_1["Confirmed"][i], df_1["Recovered"][i], df_1["Deaths"][i])
-    #     df_2.append(list)
-
-    # html = urllib.request.urlopen(url).read()
-
-    # Create the HttpResponse object with the appropriate CSV header.
-    # response = HttpResponse(content_type='text/csv')
-    # response['Content-Disposition'] = 'attachment; filename="https://raw.githubusercontent.com/datasets/covid-19/master/data/countries-aggregated.csv"'
-    # writer = csv.writer(response)
-    # writer.writerow(['First row', 'Foo', 'Bar', 'Baz','ff'])
-    #
-    # return render(response,'chart/covid19.html')
-    # return render(request, 'chart/covid19.html', df_2)
-    # with open('https://raw.githubusercontent.com/datasets/covid-19/master/data/countries-aggregated.csv', mode='w') as df:
-    #     df_1 = csv.Reader(df)
-    #     df_2 = []
-    #     # for i in range(len(df_1)):
-    #     for i in df_2:
-    #         list = (df_1["Date"][i],df_1["Country"][i],df_1["Confirmed"][i], df_1["Recovered"][i], df_1["Deaths"][i])
-    #         df_2.append(list)
-    #     print(df_2)
-
-    #     df_writer = csv.writer(df)
-    #     df_writer.writerow(["Confirmed", "Recovered", "Deaths"])  # 필드명을 만들고 싶어서 추가
-    #
-    # return render(request, 'chart/covid19.html')
-
-
-    # dataset = Passenger.objects \
-    #     .values('ticket_class') \
-    #     .annotate(survived_count=Count('ticket_class', filter=Q(survived=True)),
-    #               not_survived_count=Count('ticket_class', filter=Q(survived=False)),
-    #               all_count=Count('id')) \
-    #     .order_by('ticket_class')
-    #
-    # # 빈 리스트 3종 준비 (series 이름 뒤에 '_data' 추가)
-    # categories = list()  # for xAxis
-    # survived_series_data = list()  # for series named 'Survived'
-    # not_survived_series_data = list()  # for series named 'Not survived'
-    # all_count_series_data = list()
-    #
-    # # 리스트 3종에 형식화된 값을 등록
-    # for entry in dataset:
-    #     categories.append('%s Class' % entry['ticket_class'])  # for xAxis
-    #     survived_series_data.append(entry['survived_count'])  # for series named 'Survived'
-    #     not_survived_series_data.append(entry['not_survived_count'])  # for series named 'Not survived'
-    #     all_count_series_data.append(entry['survived_count'] / entry['all_count'] * 100)
-    #
-    # survived_series = {
-    #     'name': '생존',
-    #     'data': survived_series_data,
-    #     'color': 'green'
-    # }
-    # not_survived_series = {
-    #     'name': '비생존',
-    #     'data': not_survived_series_data,
-    #     'color': 'red'
-    # }
-    # survival_rate = {
-    #     'name': '생존율',
-    #     'data': all_count_series_data,
-    #     'color': 'skyblue',
-    #     'marker': {'readius': 4},
-    #     'type': 'line',
-    #     'yAxis': 1,
-    #
-    # }
-    #
-    # chart = {
-    #     'chart': {'type': 'column'},
-    #     'title': {'text': '좌석 등급에 따른 타이타닉 생존/비 생존 인원 및 생존율'},
-    #     'xAxis': {'categories': categories},
-    #     'yAxis': [{'opposite':'true', 'title':{'text':'인원'},
-    #                'labels':{'align':'right', 'x':-3, 'y':16, 'format':'{value}명'}},
-    #               {'title':{'text':'생존율'}, 'labels':{'align':'left', 'x':3, 'y':16, 'format':'{value}%'},
-    #                 'showFirstLabel':'true'}],
-    #     'legend': {'align':'left', 'verticalAlign':'top', 'layout':'vertical','x':120,'y':100,
-    #                'floating':'true'},
-    #     'series': [survived_series, not_survived_series, survival_rate]
-    # }
-    # dump = json.dumps(chart)
-    #
-    # return render(request, 'chart/covid19.html', {'chart': dump})
-    #

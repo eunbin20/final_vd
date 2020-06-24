@@ -7,9 +7,9 @@
     <div class="card">
       <div class="card-body" style="text-align: center; padding: 0px 100px 50px 100px;">
          <img class="card-img-top" src="{% static 'images/COVID-19icon.png' %}" >
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="{% url 'chart:covid_19_view' %}" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title">국가별 COVID-19 확진자 발생율</h5>
+        <p class="card-text">뷰에서 모든 데이터 처리 작업을 수행하는 방식으로 차트를 구현한 국가별 COVID-19 확진자 발생율 그래프입니다. </p>
+        <a href="{% url 'chart:covid_19_view' %}" class="btn btn-primary">자세히 보기</a>
       </div>
     </div>
   </div>
@@ -17,9 +17,9 @@
     <div class="card">
       <div class="card-body" style="text-align: center; padding: 0px 0px 50px 0px;">
             <img class="card-img-top" src="{% static 'images/titanic.jpg' %}" >
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <h5 class="card-title">좌석 등급에 따른 타이타닉 생존 데이터 비교</h5>
+            <p class="card-text">총 3가지의 방법으로 구현한 좌석 등급에 따른 타이타닉 생존 그래프입니다. 생존 인원과 생존률을 축으로 하는 dual axis를 구현하였습니다.</p>
+            <a href="{% url 'chart:ticket_class_view_1' %}" class="btn btn-primary">자세히 보기</a>
       </div>
     </div>
   </div>

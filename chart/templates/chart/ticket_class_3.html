@@ -1,0 +1,14 @@
+<!--templates/ticket_class_3.html-->
+
+{% extends 'base.html' %}
+{% block title %}ticket_class_3 Page{% endblock %}
+{% block content %}
+     <div class="card alert-info" style="text-align: center">
+        <h5 class="card-header">(3)뷰에서 모든 데이터 처리 작업을 수행하는 방식으로 차트 구현</h5>
+    </div>
+    <div id="container"></div>
+    <script>
+        Highcharts.chart('container', {{ chart|safe }});
+    </script>
+
+{% endblock %}

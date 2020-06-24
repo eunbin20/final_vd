@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Category Page{% endblock %}
+{% block content %}
+    {% load static %}
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body" style="text-align: center; padding: 0px 100px 50px 100px;">
+         <img class="card-img-top" src="{% static 'images/COVID-19icon.png' %}" >
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="{% url 'chart:covid_19_view' %}" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body" style="text-align: center; padding: 0px 0px 50px 0px;">
+            <img class="card-img-top" src="{% static 'images/titanic.jpg' %}" >
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

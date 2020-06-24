@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Category Page{% endblock %}
+{% block content %}
+     <div class="card alert-info" style="text-align: center">
+        <h5 class="card-header">(4)비동기 방식으로 차트 구현</h5>
+    </div>
+    <div id="container" data-url="{% url 'chart:chart_data' %}"></div>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+    $.ajax({
+        url: $("#container").attr("data-url"),
+        dataType: 'json',
+        success: function(data) {
+            Highcharts.chart("container", data);
+        }
+    });
+    </script>
+
+{% endblock %}

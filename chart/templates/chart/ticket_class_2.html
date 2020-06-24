@@ -1,0 +1,72 @@
+<!--templates/ticket_class_2.html-->
+{% extends 'base.html' %}
+{% block title %}ticket_class_2 Page{% endblock %}
+{% block content %}
+     <div class="card alert-info" style="text-align: center">
+        <h5 class="card-header">(2)뷰에서 데이터를 처리하는 방식으로 차트 구현</h5>
+    </div>
+    <div id="container"></div>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <script>
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '좌석 등급에 따른 타이타닉 생존/비 생존 인원 및 생존율'
+            },
+            xAxis: {
+                categories: {{ categories|safe }}  /* safe 필터 */
+            },
+            yAxis: [{
+                opposite: true,
+                title: {
+                      text: '인원'
+                    },
+                labels: {
+                      align: 'right',
+                      x: -3,
+                      y: 16,
+                      format: '{value}명'
+                    }
+            }, {
+                title: {
+                      text: '생존율'
+                    },
+                labels: {
+                      align: 'left',
+                      x: 3,
+                      y: 16,
+                      format: '{value}%'
+                    },
+                 showFirstLabel: true,
+            }],
+            legend: {
+                        align: 'left',
+                        verticalAlign: 'top',
+                        layout: 'vertical',
+                        x: 120,
+                        y: 100,
+                        floating:true,
+                    },
+
+            series: [{
+                name: '생존',
+                data: {{ survived_series }},
+                color: 'green'
+            }, {
+                name: '비생존',
+                data: {{ not_survived_series }},
+                color: 'red'
+            }, {
+                yAxis:1,
+                type:'line',
+                name: '생존율',
+                data: {{ all_count_series }},
+                color: 'skyblue',
+                marker: {readius: 4}
+            }
+            ]
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,92 @@
+<!--templates/ticket_class_1.html-->
+{% extends 'base.html' %}
+{% block title %}ticket_class_1 Page{% endblock %}
+{% block content %}
+    <div class="card alert-info" style="text-align: center">
+        <h5 class="card-header">(1)템플릿에서 데이터를 처리하는 방식으로 차트 구현</h5>
+    </div>
+    <div id="container"></div>
+          <script>
+                Highcharts.chart('container', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: '좌석 등급에 따른 타이타닉 생존/비 생존 인원 및 생존율'
+                    },
+                    xAxis: {
+                        categories: [
+                          {% for entry in dataset %}
+                            '{{ entry.ticket_class }} 등석'{% if not forloop.last %}, {% endif %}
+                          {% endfor %}
+                        ]
+                    },
+
+                yAxis: [{ // right y axis
+                    opposite: true,
+                    title: {
+                      text: '인원'
+                    },
+                    labels: {
+                      align: 'right',
+                      x: -3,
+                      y: 16,
+                      format: '{value}명'
+                    }
+                  }, { // left y axis
+                    title: {
+                      text: '생존율'
+                    },
+                    labels: {
+                      align: 'left',
+                      x: 3,
+                      y: 16,
+                      format: '{value}%'
+                    },
+                    showFirstLabel: true,
+
+                  } ],
+                    legend: {
+                        align: 'left',
+                        verticalAlign: 'top',
+                        layout: 'vertical',
+                        x: 120,
+                        y: 100,
+                        floating:true,
+                    },
+                    series: [{
+                        type:'column',
+                        name: '생존',
+                        data: [
+                          {% for entry in dataset %}
+                            {{ entry.survived_count }}{% if not forloop.last %}, {% endif %}
+                          {% endfor %}
+                        ],
+                        color: 'green'
+                    }, {
+                        type:'column',{# !! #}
+                        name: '비생존',
+                        data: [
+                          {% for entry in dataset %}
+                            {{ entry.not_survived_count }}{% if not forloop.last %}, {% endif %}
+                          {% endfor %}
+                        ],
+                        color: 'red',
+
+                    }, {
+                        yAxis:1,
+                        type:'line',{# !! #}
+                        name: '생존율',
+                        data: [
+                          {% for entry in dataset %}
+                              {{ entry.survived_count }}/{{ entry.all_count }} * 100
+                              {% if not forloop.last %}, {% endif %}
+                          {% endfor %}
+                        ],
+                        color: 'skyblue',
+                        marker: {readius: 4}
+                    }, ]
+                });
+          </script>
+
+{% endblock %}
